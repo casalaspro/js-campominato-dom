@@ -96,31 +96,32 @@ Ad esempio: Di cosa ho bisogno per generare i numeri? Proviamo sempre prima con 
 
 
 // bisogna creare una funzione che restituisca un array con 16 numeri da 1 alla difficoltà selezionata
-  // la funzione riceve la selezione
-  // math
 
-  function getRandomNumber(min, max){
-    // return del numero
-    return parseInt(Math.random()*max+min);
-  }
-
-  function getArrayBombs(amountOfBombs, amountOfCells){
-    let bombs = [];
-    for(let i=1; i<=amountOfBombs; i++){
-      let continueGenerate = true;
-
-      while(continueGenerate){
-        let bomb = getRandomNumber(1, amountOfCells);
-        console.log(bomb);
-        if(!(bombs.includes(bomb))){
-          continueGenerate = false;
-          bombs.push(bomb)
-        }
+function getRandomNumber(min, max){
+  // return del numero
+  return parseInt(Math.random()*max+min);
+}
+function getArrayBombs(amountOfBombs, amountOfCells){
+  // genero una varibile array
+  let bombs = [];
+  // creo ciclo che si ripeta n volte quante sono le bombe
+  for(let i=1; i<=amountOfBombs; i++){
+    // variabile booleana che controlla il ciclo while
+    let continueGenerate = true;
+    while(continueGenerate){
+      // genero una bomba
+      let bomb = getRandomNumber(1, amountOfCells);
+      // console.log(bomb);
+      // SE la bomba non è inclusa all'array di bombe
+      if(!(bombs.includes(bomb))){
+        // cambio la variabile che controlla il ciclo while
+        continueGenerate = false;
+        // aggiungo la bomba all'array
+        bombs.push(bomb)
       }
-
-      console.log("fatto giro");
     }
-    return bombs;
+  }
+  return bombs;
   }
 
   let bombsArray = getArrayBombs(20,49);
