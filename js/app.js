@@ -37,62 +37,114 @@ Ad esempio: Di cosa ho bisogno per generare i numeri? Proviamo sempre prima con 
 
 */
 
+// quando clicco recupero il numero della cella e controllo che non sia nell'array bombe
+  // se lo trovo metto il backgrund rosso, consle.log(hai perso), tutte le cele bomba rosse, tolgo tutti gli        eventListeners
+  // se non lo trovo metto il bg azzurro, aggiungo il numero cella all'array dei calpestati e rimuovo l'eventListener
+  // vince quando l'array dei calpestati è uguale numberCells-numberBombs
 
 
-// // creo nodo bottone
-// const buttonElement = document.querySelector("button");
 
-// // creo nodo contenitore
-// const containerElement = document.querySelector(".grid");
+// creo nodo bottone
+const buttonElement = document.querySelector("button");
 
-// // attribuire eventListener al bottone play che:
-// buttonElement.addEventListener("click", function () {
+// creo nodo contenitore
+const containerElement = document.querySelector(".grid");
+
+
+// array che contiene le celle calpestate
+let cellsHitted = [];
+
+// attribuire eventListener al bottone play che:
+buttonElement.addEventListener("click", function () {
   
-//   const selectElement = document.getElementById("difficulty");
-//   const selectValue = parseInt(selectElement.value);
-
-  
-  
-//   let numberCells;
-//   let difficultyClasses;
-
-  
-//   if (selectValue === 100) {
-//     numberCells = selectValue;
-//     difficultyClasses = "difficulty-1"
-//   } else if (selectValue === 81) {
-//     numberCells = selectValue;
-//     difficultyClasses = "difficulty-2"
-//   } else if (selectValue === 49) {
-//     numberCells = selectValue;
-//     difficultyClasses = "difficulty-3"
-//   } else {
-//     console.log("Choose a difficulty before to star the game.")
-//   }
-  
-
-//   createGrid(numberCells, difficultyClasses);
+  const selectElement = document.getElementById("difficulty");
+  const selectValue = parseInt(selectElement.value);
 
   
 
-//   function createGrid(cells, difficulty){
-//     // reset grid
-//     containerElement.innerHTML = '';
-
-//     for (let i = 1; i <= cells; i++) {
-//       let number = i;
-//       const divElement = document.createElement("div");
-//       divElement.classList.add("cell", difficulty);
-//       const textElement = document.createTextNode(number);
-//       divElement.appendChild(textElement);
-//       divElement.addEventListener("click", function () {
-//         this.classList.toggle('cyan');
-//       });
-//       containerElement.appendChild(divElement);
-//     }
-//   }
   
-// })
+  let numberCells;
+  let difficultyClasses;
+
+  
+  if (selectValue === 100) {
+    numberCells = selectValue;
+    difficultyClasses = "difficulty-1"
+  } else if (selectValue === 81) {
+    numberCells = selectValue;
+    difficultyClasses = "difficulty-2"
+  } else if (selectValue === 49) {
+    numberCells = selectValue;
+    difficultyClasses = "difficulty-3"
+  } else {
+    console.log("Choose a difficulty before to star the game.")
+  }
+
+  // creo l'array delle bombe
+  let bombsArray = getArrayBombs(16, numberCells);
+
+  
+  
+
+  createGrid(numberCells, difficultyClasses);
+
+  
+
+  function createGrid(cells, difficulty){
+    // reset grid
+    containerElement.innerHTML = '';
+
+    
+  
+
+    for (let i = 1; i <= cells; i++) {
+      let number = i;
+      const divElement = document.createElement("div");
+      divElement.classList.add("cell", difficulty);
+      const textElement = document.createTextNode(number);
+      divElement.appendChild(textElement);
+      divElement.addEventListener("click", function () {
+        console.log(`hai cliccato la cella ${number}`);
+        if(bombsArray.includes(number)){
+          console.log("boom")
+          bombHitted();
+        }else{
+          this.classList.add("cyan");
+          cellsHitted.push(number);
+          console.log(cellsHitted);
+          if(cells-bombsArray.length === cellsHitted.length){
+            console.log("Hai Vinto!")
+          }
+        }
+      });
+      containerElement.appendChild(divElement);
+    }
+  }
+
+  function bombHitted(){
+    // raccolgo le celle
+    let allCells = document.getElementsByClassName("cell");
+    // ciclo le celle dell'array bombe 
+    for(let i=0 ; i<bombsArray.length ; i++){
+      // ed aggiungo la classe alla cella relativa
+      allCells[bombsArray[i]-1].classList.add("red", "no-click");
+    }
+
+    // TEST RIMOZIONE EVENTLISTENER
+    // for(let i=0; i<allCells.length; i++){
+    //   allCells[i].removeEventListener("click", function () {
+    //     console.log(`hai cliccato la cella ${number}`);
+    //     if(bombsArray.includes(number)){
+    //       console.log("boom")
+    //       bombHitted();
+    //     }
+    //   })
+    // }
+  }
+  
+})
+
+
 
 
 // bisogna creare una funzione che restituisca un array con 16 numeri da 1 alla difficoltà selezionata
@@ -122,7 +174,11 @@ function getArrayBombs(amountOfBombs, amountOfCells){
     }
   }
   return bombs;
-  }
+}
 
-  let bombsArray = getArrayBombs(20,49);
-  console.dir(bombsArray);
+
+
+
+
+  
+  // console.dir(bombsArray);

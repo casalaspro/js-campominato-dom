@@ -78,6 +78,15 @@ button{
   background-color: cyan;
 }
 
+.red{
+  background-color: red;
+  color: white;
+}
+
 footer{
   padding: 20px 20px;
+}
+
+.no-click{
+  pointer-events: none;
 }
