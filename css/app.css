@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: "Poppins", sans-serif;
+}
+
+.center_x-y{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+img {
+  width: 100px;
+  display: inline;
+}
+
+h1 {
+  display: inline;
+  font-size: xxx-large;
+}
+
+select#difficulty {
+  padding: 5px 10px;
+}
+
+button{
+  padding: 5px 20px;
+}
+
+.wrap{
+  flex-wrap: wrap;
+}
+
+.container {
+  background-color: #7FFFD4;
+  padding: 80px 20%;
+}
+
+.cell{
+  aspect-ratio: 1/1;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.difficulty-1{
+  width: calc(100% / 10);
+}
+
+.difficulty-2{
+  width: calc(100% / 9);
+}
+.difficulty-3{
+  width: calc(100% / 7);
+}
+
+.cyan{
+  background-color: cyan;
+}
+
+footer{
+  padding: 20px 20px;
+}
