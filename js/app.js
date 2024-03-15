@@ -57,16 +57,19 @@ let cellsHitted = [];
 // attribuire eventListener al bottone play che:
 buttonElement.addEventListener("click", function () {
   
+  // recupero l'elemento della selezione
   const selectElement = document.getElementById("difficulty");
+  // recuper0 il valore dalla selezione
   const selectValue = parseInt(selectElement.value);
 
   
 
-  
+  // variabile per il numero di celle selezionate
   let numberCells;
+  // variabile per la difficoltà scelta
   let difficultyClasses;
 
-  
+  // porto il valore ottenuto da select nella variabile numberCells e popolo di conseguenza la difficultClass
   if (selectValue === 100) {
     numberCells = selectValue;
     difficultyClasses = "difficulty-1"
@@ -77,6 +80,7 @@ buttonElement.addEventListener("click", function () {
     numberCells = selectValue;
     difficultyClasses = "difficulty-3"
   } else {
+    // nel caso nessun valore rispettasse le esigenze avverto lo user
     console.log("Choose a difficulty before to star the game.")
   }
 
@@ -85,30 +89,41 @@ buttonElement.addEventListener("click", function () {
 
   
   
-
+  // evoco la funzione di creazione della griglia
   createGrid(numberCells, difficultyClasses);
 
   
-
+  // creo la funzione di creazione della griglia
   function createGrid(cells, difficulty){
     // reset grid
     containerElement.innerHTML = '';
 
     
   
-
+    // ciclo il numero di celle
     for (let i = 1; i <= cells; i++) {
+      // variabile che contiene l'indice
       let number = i;
+      // creo un elemento "div"
       const divElement = document.createElement("div");
+      // aggiungo due classi: una che formatta la cella ed una che la dimensiona
       divElement.classList.add("cell", difficulty);
+      // creo il teso dell'elemento
       const textElement = document.createTextNode(number);
+      // appendo il teso al div
       divElement.appendChild(textElement);
+      // aggiungo l'eventListener al div
       divElement.addEventListener("click", function () {
+        // check cella cliccata
         console.log(`hai cliccato la cella ${number}`);
+        // SE il numero della cella cliccata è nell'array delle bombe
         if(bombsArray.includes(number)){
           console.log("boom")
+          // evoco la funzione bombHitted
           bombHitted();
+          // ALTRIMENTI
         }else{
+          // 
           this.classList.add("cyan");
           cellsHitted.push(number);
           console.log(cellsHitted);
@@ -117,6 +132,7 @@ buttonElement.addEventListener("click", function () {
           }
         }
       });
+      // appendo il div al suo container
       containerElement.appendChild(divElement);
     }
   }
@@ -127,7 +143,11 @@ buttonElement.addEventListener("click", function () {
     // ciclo le celle dell'array bombe 
     for(let i=0 ; i<bombsArray.length ; i++){
       // ed aggiungo la classe alla cella relativa
-      allCells[bombsArray[i]-1].classList.add("red", "no-click");
+      allCells[bombsArray[i]-1].classList.add("red");
+    }
+
+    for(let i =0;i<allCells.length; i++){
+      allCells[i].classList.add("no-click");
     }
 
     // TEST RIMOZIONE EVENTLISTENER
@@ -140,6 +160,11 @@ buttonElement.addEventListener("click", function () {
     //     }
     //   })
     // }
+  }
+
+  function youLose(){
+    let allCells = document.getElementsByClassName("cell");
+    
   }
   
 })
